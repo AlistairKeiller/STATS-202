@@ -33,7 +33,7 @@ format:
 plot(function(x) exp(-x), from = 1, to = 6, xlab = "Flexibility", ylab = "Error", main = "Bias-Variance Tradeoff", col = "black")
 plot(function(x) exp(-x * 1.1) + 0.01, from = 1, to = 6, xlab = "Flexibility", ylab = "Error", main = "Bias-Variance Tradeoff", col = "green", add = TRUE)
 plot(function(x) exp(x - 7), from = 1, to = 6, xlab = "Flexibility", ylab = "Error", main = "Bias-Variance Tradeoff", col = "blue", add = TRUE)
-plot(function(x) ((x - 3.5) ** 2) / 20 + 0.06, from = 1, to = 6, xlab = "Flexibility", ylab = "Error", main = "Bias-Variance Tradeoff", col = "yellow", add = TRUE)
+plot(function(x) ((x - 3.5)**2) / 20 + 0.06, from = 1, to = 6, xlab = "Flexibility", ylab = "Error", main = "Bias-Variance Tradeoff", col = "yellow", add = TRUE)
 plot(function(x) 0.0001 + x - x, from = 1, to = 6, xlab = "Flexibility", ylab = "Error", main = "Bias-Variance Tradeoff", col = "red", add = TRUE)
 legend("topright", legend = c("Bias", "Training Error", "Test Error", "Variance", "Bayes Error"), col = c("black", "green", "yellow", "blue", "red"), lty = 1, cex = 0.8)
 ```
@@ -225,8 +225,8 @@ Where the regression coefficients $\beta_0=\beta_1=2$ and $\beta_2=0.3$.
 
 ## Problem 10.b
 ```{r}
-print(paste("The correlation is:", cor(x1,x2)))
-plot(x1,x2)
+print(paste("The correlation is:", cor(x1, x2)))
+plot(x1, x2)
 ```
 
 ## Problem 10.c
