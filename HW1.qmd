@@ -195,7 +195,7 @@ Everything looks relatively normal and good. The only outlier to note is $14$ in
 
 ## Problem 9.e
 ```{r}
-summary(lm(mpg ~ displacement + horsepower + origin + weight + year + displacement:horsepower + displacement:origin + displacement:weight + displacement:year + horsepower:origin + horsepower:weight + horsepower:year + origin:weight + origin:year + weight:year ,Auto[1:8]))
+summary(lm(mpg ~ displacement + horsepower + origin + weight + year + displacement:horsepower + displacement:origin + displacement:weight + displacement:year + horsepower:origin + horsepower:weight + horsepower:year + origin:weight + origin:year + weight:year, Auto[1:8]))
 ```
 So displacement:origin, displacement:weight, horsepower:origin, and horsepower:year are statistically significant interactions.
 
@@ -231,19 +231,19 @@ plot(x1, x2)
 
 ## Problem 10.c
 ```{r}
-summary(lm(y~x1+x2))
+summary(lm(y ~ x1 + x2))
 ```
 So $\hat{\beta}_0=2.13$, $\hat{beta}_1=1.44$, and $\hat{beta}_2=1.01$. These estimators for $\beta_0=\beta_1=2$ and $\beta_2=0.3$ are significantly inacurate, especially in the case of $\hat{beta}_2=1.01$ vs. $\beta_2=0.3$. Given the $Pr(>|t|)<0.05$, we can say that there is a statistically significant correlation between $x_1$ and $y$, so we can reject the null hypothesis that $beta_1=0$. However, the correlation for $x_2$ is not statistically significant because $Pr(>|t|)>0.05$, so we do not reject the null hypothesis that $beta_2=0$.
 
 ## Problem 10.d
 ```{r}
-summary(lm(y~x1))
+summary(lm(y ~ x1))
 ```
 $\beta_1'$ is still statistically significant, so we can reject the null hypothesis that $\beta_1'=0$ for that simpler model.
 
 ## Problem 10.e
 ```{r}
-summary(lm(y~x2))
+summary(lm(y ~ x2))
 ```
 Now $beta_2'$ is also statistically significant, so we can reject the null hypothesis that $beta_2'=0$ for that simpler model.
 
@@ -252,8 +252,8 @@ No, they don't contract each other because $\beta_1!=\beta_1'$ and $\beta_2!=\be
 
 ## Problem 10.g
 ```{r}
-summary(lm(y~x1+x2))
-summary(lm(y~x1))
-summary(lm(y~x2))
+summary(lm(y ~ x1 + x2))
+summary(lm(y ~ x1))
+summary(lm(y ~ x2))
 ```
 All of the $\beta$s and $\beta'$s have changed a lot, and now $\beta_1$ is not statistically significant, so we can't reject the null hypothesis that $\beta_1=0$, but $\beta_2$ is statistically significant so that we can reject the null hypothesis that $\beta_2=0$.
