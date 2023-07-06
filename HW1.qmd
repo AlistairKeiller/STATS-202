@@ -167,15 +167,11 @@ plot(Auto)
 
 ## Problem 9.b
 ```{r}
-library(ISLR)
-
 cor(Auto[1:8])
 ```
 
 ## Problem 9.c
 ```{r}
-library(ISLR)
-
 summary(lm(mpg ~ .,Auto[1:8]))
 ```
 
@@ -191,15 +187,12 @@ The coefficient for the year is $0.75$, which suggests that the mpg of an otherw
 
 ## Problem 9.d
 ```{r}
-library(ISLR)
-
 plot(lm(mpg ~ .,Auto[1:8]))
 ```
 Everything looks relatively normal and good. The only outlier to note is $14$ in the residuals vs. leverage graph. However, leverage of $0.15$ is not large enough to warrant further investigation.
 
 ## Problem 9.e
 ```{r}
-library(ISLR)
 summary(lm(mpg ~ displacement + horsepower + origin + weight + year + displacement:horsepower + displacement:origin + displacement:weight + displacement:year + horsepower:origin + horsepower:weight + horsepower:year + origin:weight + origin:year + weight:year,Auto[1:8]))
 ```
 So displacement:origin, displacement:weight, horsepower:origin, and horsepower:year are statistically significant interactions.
