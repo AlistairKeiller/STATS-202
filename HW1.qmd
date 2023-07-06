@@ -1,11 +1,11 @@
 ---
 title: "STATS 202 Homework 1"
 format:
-    html:
-        code-fold: true
-    pdf:
-      fig-width: 7
-      fig-height: 7
+  html:
+      code-fold: true
+  pdf:
+    fig-width: 7
+    fig-height: 7
 ---
 # Problem 1
 # Problem 1.a
@@ -195,9 +195,9 @@ Everything looks relatively normal and good. The only outlier to note is $14$ in
 
 ## Problem 9.e
 ```{r}
-summary(lm(mpg ~ displacement + horsepower + origin + weight + year + displacement:horsepower + displacement:origin + displacement:weight + displacement:year + horsepower:origin + horsepower:weight + horsepower:year + origin:weight + origin:year + weight:year, Auto[1:8]))
+summary(lm(mpg ~ . * ., Auto[1:8]))
 ```
-So displacement:origin, displacement:weight, horsepower:origin, and horsepower:year are statistically significant interactions.
+So displacement:year, acceleration:year, acceleration:origin are the statistically significant interactions in this regression.
 
 ## Problem 9.f
 ```{r}
@@ -257,3 +257,24 @@ summary(lm(y ~ x1))
 summary(lm(y ~ x2))
 ```
 All of the $\beta$s and $\beta'$s have changed a lot, and now $\beta_1$ is not statistically significant, so we can't reject the null hypothesis that $\beta_1=0$, but $\beta_2$ is statistically significant so that we can reject the null hypothesis that $\beta_2=0$.
+
+# Problem 11
+$$
+\begin{split}
+\mathbb{E}\left(y_0-\hat{f}(x_0)\right)^2 &= \mathbb{E}\left(\mathbb{E}\left(y_0-\hat{f}(x_0)|x_0\right)^2\right) \\
+&=\mathbb{E}\left(\text{Var}(\hat{f}(x_0))+\text{Bias}(\hat{f}(x_0))^2+\text{Var}(\epsilon_0)\right)
+\end{split}
+$$
+
+# Problem 12
+## Problem 12.a
+we want to minimize $\sum_{i \in S}\left(\beta x_i-y_i\right)^2$, so let's take the derivative:
+$$
+\begin{split}
+0 &= \frac{\partial}{\partial \beta} \sum_{i \in S}\left(\beta x_i-y_i\right)^2 \\
+&= \sum_{i \in S}2x_i(\beta x_i-y_i) \\
+&= \beta\sum_{i \in S}2x_i^2+\sum_{i \in S}2x_i y_i \\
+\beta &= \frac{\sum_{i \in S}x_i y_i}{\sum_{i \in S}x_i^2}
+\end{split}
+$$
+## Problem 12.b
