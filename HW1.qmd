@@ -271,10 +271,23 @@ $$
 we want to minimize $\sum_{i \in S}\left(\beta x_i-y_i\right)^2$, so let's take the derivative:
 $$
 \begin{split}
-0 &= \frac{\partial}{\partial \beta} \sum_{i \in S}\left(\beta x_i-y_i\right)^2 \\
-&= \sum_{i \in S}2x_i(\beta x_i-y_i) \\
-&= \beta\sum_{i \in S}2x_i^2+\sum_{i \in S}2x_i y_i \\
-\beta &= \frac{\sum_{i \in S}x_i y_i}{\sum_{i \in S}x_i^2}
+0 &= \frac{\partial}{\partial \hat{\beta}} \sum_{i \in S}\left(\hat{\beta} x_i-y_i\right)^2 \\
+&= \sum_{i \in S}2x_i(\hat{\beta} x_i-y_i) \\
+&= \hat{\beta}\sum_{i \in S}2x_i^2+\sum_{i \in S}2x_i y_i \\
+\hat{\beta} &= \frac{\sum_{i \in S}x_i y_i}{\sum_{i \in S}x_i^2}
 \end{split}
 $$
+
 ## Problem 12.b
+$$
+\begin{split}
+\text{Var}\left(\hat{\beta}\right) &= \text{Var}\left(\frac{\sum_{i \in S}x_i y_i}{\sum_{i \in S}x_i^2}\right) \\
+&=\frac{\sum_{i \in S}\text{Var}\left(x_iy_i\right)}{\left(\sum_{i \in S} x_i^2\right)^2} \\
+&=\frac{\sum_{i \in S}x_i\text{Var}\left(y_i\right)}{\left(\sum_{i \in S} x_i^2\right)^2} \\
+&=\frac{\sum_{i \in S}x_i^2\sigma^2}{\left(\sum_{i \in S} x_i^2\right)^2} \\
+&=\frac{\sigma^2\sum_{i \in S}x_i^2}{\left(\sum_{i \in S} x_i^2\right)^2} \\
+&=\frac{\sigma^2}{\sum_{i \in S} x_i^2} \\
+\end{split}
+$$
+
+## Problem 12.c
