@@ -281,13 +281,27 @@ $$
 ## Problem 12.b
 $$
 \begin{split}
-\text{Var}\left(\hat{\beta}\right) &= \text{Var}\left(\frac{\sum_{i \in S}x_i y_i}{\sum_{i \in S}x_i^2}\right) \\
+\text{Var}(\hat{\beta}) &= \text{Var}\left(\frac{\sum_{i \in S}x_i y_i}{\sum_{i \in S}x_i^2}\right) \\
 &=\frac{\sum_{i \in S}\text{Var}\left(x_iy_i\right)}{\left(\sum_{i \in S} x_i^2\right)^2} \\
 &=\frac{\sum_{i \in S}x_i\text{Var}\left(y_i\right)}{\left(\sum_{i \in S} x_i^2\right)^2} \\
 &=\frac{\sum_{i \in S}x_i^2\sigma^2}{\left(\sum_{i \in S} x_i^2\right)^2} \\
 &=\frac{\sigma^2\sum_{i \in S}x_i^2}{\left(\sum_{i \in S} x_i^2\right)^2} \\
 &=\frac{\sigma^2}{\sum_{i \in S} x_i^2} \\
+\text{SE}(\hat{\beta})&=\sqrt{\frac{\sigma^2}{\sum_{i \in S} x_i^2}}
 \end{split}
 $$
 
 ## Problem 12.c
+If $\sum_{i \in S} x_i^2 \rightarrow\infty$, then we can show that $\text{Var}(\hat{\beta}) \rightarrow 0$:
+$$
+\begin{split}
+\lim_{\sum_{i \in S} x_i^2 \rightarrow\infty}\text{Var}(\hat{\beta})&=\lim_{\sum_{i \in S} x_i^2 \rightarrow\infty}\frac{\sigma^2}{\sum_{i \in S} x_i^2} \\
+&=\lim_{x\rightarrow\infty}\frac{c}{x} \\
+&=0
+\end{split}
+$$
+Via Markov's Inequality:
+$$
+\lim_{\sum_{i \in S} x_i^2 \rightarrow\infty}\text{Var}(\hat{\beta})=0\quad\Rightarrow\quad\lim_{\sum_{i \in S} x_i^2 \rightarrow\infty}|\hat{\beta}-\beta|=0
+$$
+So $\sum_{i \in S} x_i^2 \rightarrow\infty$ is garented to make the estimator consistent.
