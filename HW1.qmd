@@ -7,27 +7,34 @@ format:
     fig-width: 7
     fig-height: 7
 ---
+
 # Problem 1
+
 # Problem 1.a
-- **regression** problem because salary is continuous.
-- **inference** problem because we wish to find the association between the factors and the salary but not necessarily predict the salary given the factors.
-- $n=500$
-- $p=3$
+
+-   **regression** problem because salary is continuous.
+-   **inference** problem because we wish to find the association between the factors and the salary but not necessarily predict the salary given the factors.
+-   $n=500$
+-   $p=3$
 
 ## Problem 1.b
-- **classification** problem becuase success/failure is binary.
-- **prediction** problem because we are trying to predict the outcome of the product launch.
-- $n=20$
-- $p=13$
+
+-   **classification** problem becuase success/failure is binary.
+-   **prediction** problem because we are trying to predict the outcome of the product launch.
+-   $n=20$
+-   $p=13$
 
 # Problem 1.c
-- **regression** problem because % change is continuous.
-- **prediction** problem because we are trying to predict the outcome of the product launch.
-- $n=20$
-- $p=3$
+
+-   **regression** problem because % change is continuous.
+-   **prediction** problem because we are trying to predict the outcome of the product launch.
+-   $n=20$
+-   $p=3$
 
 # Problem 2
+
 ## Problem 2.a
+
 ```{r}
 #| pdf.echo: #| false
 plot(function(x) exp(-x), from = 1, to = 6, xlab = "Flexibility", ylab = "Error", main = "Bias-Variance Tradeoff", col = "black")
@@ -39,14 +46,17 @@ legend("topright", legend = c("Bias", "Training Error", "Test Error", "Variance"
 ```
 
 ## Problem 2.b
-- The bias will decrease as the flexibility increases because the model will be able to fit the data better.
-- The Training Error will decrease as the flexibility increases because the model will be able to fit the data better.
-- The Test Error will decrease up to a critical point as the flexibility increases because the model will be able to fit the data better, but after that critical point the model will start to overfit to the training data and the test error will increase as the overfitted model will not generalize.
-- The Variance will increase as the flexibility increases because the model will start to overfit to the data and become more complecated and varied.
-- The Bayes Error will stay the same and be lower than the test error as the flexibility increases because the Bayes Error is the irreducible error and is not affected by the model.
+
+-   The bias will decrease as the flexibility increases because the model will be able to fit the data better.
+-   The Training Error will decrease as the flexibility increases because the model will be able to fit the data better.
+-   The Test Error will decrease up to a critical point as the flexibility increases because the model will be able to fit the data better, but after that critical point the model will start to overfit to the training data and the test error will increase as the overfitted model will not generalize.
+-   The Variance will increase as the flexibility increases because the model will start to overfit to the data and become more complecated and varied.
+-   The Bayes Error will stay the same and be lower than the test error as the flexibility increases because the Bayes Error is the irreducible error and is not affected by the model.
 
 # Problem 3
+
 ## Problem 3.a
+
 $$
 \begin{split}
 \sqrt{3^2}&=3 \\
@@ -59,16 +69,21 @@ $$
 $$
 
 ## Problem 3.b
+
 With $K=1$, the closest is observation $5$ which is green, so the prediction would be **green**.
 
 ## Problem 3.c
+
 With $K=3$, the closest are observations $5$, $6$, and $2$, which are green, red, and red, so the prediction would be **red**.
 
 ## Problem 3.d
-A higher $K$ value would turn the prediction into a higher bias lower varaince solution, as the predictions get averaged out rather than tightly fitting to the data. If the true function is highly nonlinear, then this low-bias model would struggle to make accurate predictions. Therfore, **Lower $K$ values would preform better**.
+
+A higher $K$ value would turn the prediction into a higher bias lower varaince solution, as the predictions get averaged out rather than tightly fitting to the data. If the true function is highly nonlinear, then this low-bias model would struggle to make accurate predictions. Therfore, **Lower** $K$ values would preform better.
 
 # Problem 4
+
 ## Problem 4.a
+
 $$
 \begin{split}
 2\sum_{i\in C_k}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2&=\sum_{i\in C_k}\sum_{j=1}^p 2x_{ij}^2+\sum_{i\in C_k}\sum_{j=1}^p -4x_{ij}\bar{x}_{kj}+\sum_{i\in C_k}\sum_{j=1}^p 2\bar{x}_{kj}^2 \\
@@ -81,13 +96,15 @@ $$
 $$
 
 ## Problem 4.b
+
 $$
 \sum_{k=1}^K\frac{1}{|C_k|}\sum_{i,i'\in C_k}\sum_{j=1}^p (x_{ij}+x_{i'j})^2=2\sum_{k=1}^K\sum_{i\in C_k}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2
-$$
-Step 2.b will inharently always the average distance of each cluster to the centroid, and therefore decrease $\sum_{i\in C_k}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2$. Therefore, when using Step 2.b to generate a $C_k'$ from $C_k$, $\sum_{i\in C_k'}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2<=\sum_{i\in C_k}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2$. Thererefore $2\sum_{k=1}^K\sum_{i\in C_k'}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2<=2\sum_{k=1}^K\sum_{i\in C_k}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2$ therefore $\sum_{k=1}^K\frac{1}{|C_k|}\sum_{i,i'\in C_k'}\sum_{j=1}^p (x_{ij}+x_{i'j})^2<=\sum_{k=1}^K\frac{1}{|C_k|}\sum_{i,i'\in C_k}\sum_{j=1}^p (x_{ij}+x_{i'j})^2$.
+$$ Step 2.b will inharently always the average distance of each cluster to the centroid, and therefore decrease $\sum_{i\in C_k}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2$. Therefore, when using Step 2.b to generate a $C_k'$ from $C_k$, $\sum_{i\in C_k'}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2<=\sum_{i\in C_k}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2$. Thererefore $2\sum_{k=1}^K\sum_{i\in C_k'}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2<=2\sum_{k=1}^K\sum_{i\in C_k}\sum_{j=1}^p(x_{ij}-\bar{x}_{kj})^2$ therefore $\sum_{k=1}^K\frac{1}{|C_k|}\sum_{i,i'\in C_k'}\sum_{j=1}^p (x_{ij}+x_{i'j})^2<=\sum_{k=1}^K\frac{1}{|C_k|}\sum_{i,i'\in C_k}\sum_{j=1}^p (x_{ij}+x_{i'j})^2$.
 
 # Problem 5
+
 ## Problem 5.a
+
 ```{r}
 m <- matrix(c(0, 0.3, 0.4, 0.7, 0.3, 0, 0.5, 0.8, 0.4, 0.5, 0, 0.45, 0.7, 0.8, 0.45, 0), nrow = 4, ncol = 4)
 
@@ -95,6 +112,7 @@ plot(hclust(as.dist(m)))
 ```
 
 ## Problem 5.b
+
 ```{r}
 m <- matrix(c(0, 0.3, 0.4, 0.7, 0.3, 0, 0.5, 0.8, 0.4, 0.5, 0, 0.45, 0.7, 0.8, 0.45, 0), nrow = 4, ncol = 4)
 
@@ -102,12 +120,15 @@ plot(hclust(as.dist(m), method = "single"))
 ```
 
 ## Problem 5.c
+
 The clusters will be ${1,2}$ and ${3,4}$.
 
 ## Problem 5.d
+
 The clusters will be ${1,2,3}$ and ${4}$.
 
 ## Problem 5.e
+
 ```{r}
 m <- matrix(c(0, 0.3, 0.4, 0.7, 0.3, 0, 0.5, 0.8, 0.4, 0.5, 0, 0.45, 0.7, 0.8, 0.45, 0), nrow = 4, ncol = 4)
 
@@ -115,19 +136,25 @@ plot(rev(as.dendrogram(hclust(as.dist(m)))))
 ```
 
 # Problem 6
+
 ## Problem 6.a
+
 There is **not enough information to tell** They will be the same height if ${1,2,3}$ are the same point and ${4,5}$ are the same. However, if they are different, then the distance between the clusters, and therefore height in the dendrogram, will be different for single link and complete clustering.
 
 ## Problem 6.b
+
 They will fuse at the **same height** because for both single linkage and complete linkage clustering, the distance between ${5}$ ${6}$ is just the distance between $5$ and $6$.
 
 # Problem 7
+
 ## Problem 7.a
+
 ```{r}
 plot(hclust(dist(USArrests)))
 ```
 
 ## Problem 7.b
+
 ```{r}
 c <- cutree(hclust(dist(USArrests)), k = 3)
 for (i in 1:3) {
@@ -136,29 +163,37 @@ for (i in 1:3) {
 ```
 
 ## Problem 7.c
+
 ```{r}
 plot(hclust(dist(as.data.frame(scale(USArrests)))))
 ```
 
 ## Problem 7.d
-Before scaling, the assault had a Standard deviation of 83 compared to Murder’s 4.3. This means that the Euclidian distance component for Murder is insignificant compared to assault. So the unscaled measurement puts a much greater emphasis on common crimes like assault. The scaled version will scale down the distances in the assault so it compares all the factors completely. This makes more sense to me, and I think that many people trying to conclude similarities in states of all of these arrests, rather than just focusing on the more common arrests, would prefer the scaled version. So I think the scaled clusters are more useful and instightful than the not scaled ones.
+
+Before scaling, the assault had a Standard deviation of 83 compared to Murder's 4.3. This means that the Euclidian distance component for Murder is insignificant compared to assault. So the unscaled measurement puts a much greater emphasis on common crimes like assault. The scaled version will scale down the distances in the assault so it compares all the factors completely. This makes more sense to me, and I think that many people trying to conclude similarities in states of all of these arrests, rather than just focusing on the more common arrests, would prefer the scaled version. So I think the scaled clusters are more useful and instightful than the not scaled ones.
 
 # Problem 8
+
 ## Problem 8.a
+
 We expect the cubic regression to have a **lower RSS** than the Linear regression on the training set. They will both be trying to optimize the RSS on the training set, and the increased flexibility of the Cubic model will allow it to overfit to the training data, therefore achieving a lower training RSS.
 
 ## Problem 8.b
+
 We would expect the cubic regression to have a **larger RSS** than the Linear model on the test set because we would expect the cubic model to overfit on the training RSS, therefore, degrading its ability to generalize and estimate the true function, and therefore harming its performance on the training data.
 
 ## Problem 8.c
+
 We expect the cubic model to have a **lower RSS** on the training data because its increased flexibility will allow it to fit better. However, without knowing more about the function, we can not be sure it is overfitting.
 
 ## Problem 8.d
+
 **There is not enough information to tell**. If it is truly a cubic function, then the linear model will be stuck with high bias. At the same time, the cubic model would become a good approximation of the true cubic function without too much overfitting, making it more effective than the linear model on the training data RSS. However, if it is close to a linear model, then the cubic model could overfit to random noise, therefore making it have a worse RSS than the linear model on the testing data.
 
 # Problem 9
+
 ## Problem 9.a
-```{r}
+
 ```{r}
 library(ISLR)
 
@@ -166,6 +201,7 @@ plot(Auto)
 ```
 
 ## Problem 9.b
+
 ```{r}
 library(ISLR)
 
@@ -173,33 +209,41 @@ cor(Auto[1:8])
 ```
 
 ## Problem 9.c
+
 ```{r}
 summary(lm(mpg ~ ., Auto[1:8]))
 ```
 
 ### Problem 9.c.i
+
 Yes, the p-value is $2.2 \cdot 10^{-16}<0.05$, so it is statistically significant.
 
 ### Problem 9.c.ii
+
 The statistically significant variables are weight, year, origin, displacement.
 
 ### Problem 9.c.iii
+
 The coefficient for the year is $0.75$, which suggests that the mpg of an otherwise identical car in this dataset increases by about $0.75$ every year.
 
-
 ## Problem 9.d
+
 ```{r}
 plot(lm(mpg ~ ., Auto[1:8]))
 ```
+
 Everything looks relatively normal and good. The only outlier to note is $14$ in the residuals vs. leverage graph. However, leverage of $0.15$ is not large enough to warrant further investigation.
 
 ## Problem 9.e
+
 ```{r}
 summary(lm(mpg ~ . * ., Auto[1:8]))
 ```
+
 So displacement:year, acceleration:year, acceleration:origin are the statistically significant interactions in this regression.
 
 ## Problem 9.f
+
 ```{r}
 summary(lm(mpg ~ year, Auto[1:8]))
 summary(lm(mpg ~ log(year), Auto[1:8]))
@@ -207,58 +251,71 @@ summary(lm(mpg ~ I(year^2), Auto[1:8]))
 summary(lm(mpg ~ sqrt(year), Auto[1:8]))
 summary(lm(mpg ~ sin(year), Auto[1:8]))
 ```
+
 Most of the transformations are still highly statistically significant, except for $sin$, which is still statistically significant but to a much smaller degree.
 
 # Problem 10
+
 ```{r}
 set.seed(1)
 x1 <- runif(100)
 x2 <- 0.5 * x1 + rnorm(100) / 10
 y <- 2 + 2 * x1 + 0.3 * x2 + rnorm(100)
 ```
+
 ## Problem 10.a
-The model form is
-$$
+
+The model form is $$
 y=\beta_0+\beta_1 x_1+\beta_2 c_2+\epsilon
-$$
-Where the regression coefficients $\beta_0=\beta_1=2$ and $\beta_2=0.3$.
+$$ Where the regression coefficients $\beta_0=\beta_1=2$ and $\beta_2=0.3$.
 
 ## Problem 10.b
+
 ```{r}
 print(paste("The correlation is:", cor(x1, x2)))
 plot(x1, x2)
 ```
 
 ## Problem 10.c
+
 ```{r}
 summary(lm(y ~ x1 + x2))
 ```
+
 So $\hat{\beta}_0=2.13$, $\hat{beta}_1=1.44$, and $\hat{beta}_2=1.01$. These estimators for $\beta_0=\beta_1=2$ and $\beta_2=0.3$ are significantly inacurate, especially in the case of $\hat{beta}_2=1.01$ vs. $\beta_2=0.3$. Given the $Pr(>|t|)<0.05$, we can say that there is a statistically significant correlation between $x_1$ and $y$, so we can reject the null hypothesis that $beta_1=0$. However, the correlation for $x_2$ is not statistically significant because $Pr(>|t|)>0.05$, so we do not reject the null hypothesis that $beta_2=0$.
 
 ## Problem 10.d
+
 ```{r}
 summary(lm(y ~ x1))
 ```
+
 $\beta_1'$ is still statistically significant, so we can reject the null hypothesis that $\beta_1'=0$ for that simpler model.
 
 ## Problem 10.e
+
 ```{r}
 summary(lm(y ~ x2))
 ```
+
 Now $beta_2'$ is also statistically significant, so we can reject the null hypothesis that $beta_2'=0$ for that simpler model.
 
 ## Problem 10.f
+
 No, they don't contract each other because $\beta_1!=\beta_1'$ and $\beta_2!=\beta_2'$ becuase $\beta_1$ and $\beta_2$ satisfy $y=\beta_0+\beta_1 x_1+\beta_2 x_2+\epsilon$, while $y\neq\beta_0+\beta_1' x_1+\beta_2' x_2+\epsilon$. More specifically, since $x_1$ and $x_2$ are linearly related, only of them is needed to predict $y$, so the other will end up with a low $p$ value. When separated, they are both individually capable of predicting y.
 
 ## Problem 10.g
+
 ```{r}
 summary(lm(y ~ x1 + x2))
 summary(lm(y ~ x1))
 summary(lm(y ~ x2))
 ```
+
 All of the $\beta$s and $\beta'$s have changed a lot, and now $\beta_1$ is not statistically significant, so we can't reject the null hypothesis that $\beta_1=0$, but $\beta_2$ is statistically significant so that we can reject the null hypothesis that $\beta_2=0$.
 
 # Problem 11
+
 $$
 \begin{split}
 \mathbb{E}\left(y_0-\hat{f}(x_0)\right)^2 &= \mathbb{E}\left(\mathbb{E}\left(y_0-\hat{f}(x_0)|x_0\right)^2\right) \\
@@ -267,9 +324,10 @@ $$
 $$
 
 # Problem 12
+
 ## Problem 12.a
-we want to minimize $\sum_{i \in S}\left(\beta x_i-y_i\right)^2$, so let's take the derivative:
-$$
+
+we want to minimize $\sum_{i \in S}\left(\beta x_i-y_i\right)^2$, so let's take the derivative: $$
 \begin{split}
 0 &= \frac{\partial}{\partial \hat{\beta}} \sum_{i \in S}\left(\hat{\beta} x_i-y_i\right)^2 \\
 &= \sum_{i \in S}2x_i(\hat{\beta} x_i-y_i) \\
@@ -279,6 +337,7 @@ $$
 $$
 
 ## Problem 12.b
+
 $$
 \begin{split}
 \text{Var}(\hat{\beta}) &= \text{Var}\left(\frac{\sum_{i \in S}x_i y_i}{\sum_{i \in S}x_i^2}\right) \\
@@ -292,16 +351,13 @@ $$
 $$
 
 ## Problem 12.c
-If $\sum_{i \in S} x_i^2 \rightarrow\infty$, then we can show that $\text{Var}(\hat{\beta}) \rightarrow 0$:
-$$
+
+If $\sum_{i \in S} x_i^2 \rightarrow\infty$, then we can show that $\text{Var}(\hat{\beta}) \rightarrow 0$: $$
 \begin{split}
 \lim_{\sum_{i \in S} x_i^2 \rightarrow\infty}\text{Var}(\hat{\beta})&=\lim_{\sum_{i \in S} x_i^2 \rightarrow\infty}\frac{\sigma^2}{\sum_{i \in S} x_i^2} \\
 &=\lim_{x\rightarrow\infty}\frac{c}{x} \\
 &=0
 \end{split}
-$$
-Via Markov's Inequality:
-$$
+$$ Via Markov's Inequality: $$
 \lim_{\sum_{i \in S} x_i^2 \rightarrow\infty}\text{Var}(\hat{\beta})=0\quad\Rightarrow\quad\lim_{\sum_{i \in S} x_i^2 \rightarrow\infty}|\hat{\beta}-\beta|=0
-$$
-So $\sum_{i \in S} x_i^2 \rightarrow\infty$ is garented to make the estimator consistent.
+$$ So $\sum_{i \in S} x_i^2 \rightarrow\infty$ is garented to make the estimator consistent.
