@@ -40,9 +40,7 @@ On average, $10^{-100}$ of the observations will be used to be used to make the 
 
 As the number of features increase, fewer of the larger set will be used for inference, which will make the model seem relatively "dumber" as it sees a very local pictures and never really "understanding" a larger picture, therefore also causing really high variance and overfitting.
 
-## **Problem 2.e**
-
-CHECK THAT THIS IS THE CORRECT INTERPRETATION
+## Problem 2.e
 
 $$
 \begin{split}
