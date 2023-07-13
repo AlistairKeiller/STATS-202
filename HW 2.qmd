@@ -8,8 +8,10 @@ format:
 ```{python}
 from ISLP import load_data
 import seaborn as sns
+import seaborn.objects as so
 import matplotlib.pyplot as plt
 import numpy as np
+import statsmodels.formula.api as smf
 
 weekly = load_data("Weekly")
 sns.set_theme(style="darkgrid")
@@ -110,6 +112,24 @@ g.map_diag(sns.kdeplot, multiple="stack")
 g.add_legend()
 plt.show()
 ```
+
+```{python}
+so.Plot(weekly, color="Direction").pair(x=['Year', 'Lag1', 'Lag2', 'Lag3', 'Lag4', 'Lag5', 'Volume', 'Today'], y=['Year', 'Lag1', 'Lag2', 'Lag3', 'Lag4', 'Lag5', 'Volume', 'Today']).add(so.Dot())
+```
+
+From looking at the graphs, we can see that today is clustered by direction and there is a correlation between Volume and year.
+
+## Problem 5.b
+
+```{python}
+weekly_bool = weekly.copy()
+weekly_bool["Direction"] = (weekly["Direction"] == "Up").astype(int)
+smf.logit('Direction ~ Volume + Lag1 + Lag2 + Lag3 + Lag4 + Lag5', data=weekly_bool).fit().summary()
+```
+
+Lag2 is the only statistically significant correlation.
+
+## Problem 5.c
 
 # Problem 6
 
