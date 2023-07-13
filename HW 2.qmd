@@ -90,3 +90,19 @@ $$
 # Problem 4
 
 We would prefer the regression, because the $K=1$ KNN will have a $0\%$ error on the training data ( the NN of any data point in the training data set will just be itself ), which means that it had a $36\%$ error on the testing data. Scince the $36\%$ test error for KNN is more than the $30\%$ error on the linear regression, we would prefer the regression to classify new observations.
+
+# Problem 6
+
+## Problem 6.a
+
+Each bootstrap observation has a $\frac{1}{n}$ chance of being equal to the $j$th element of the original sample, so it has a $1-\frac{1}{n}=\frac{n-1}{n}$ chance of not being the $j$th observation.
+
+## Problem 6.b
+
+Every bootstrap observation is sampled identically, so it is also $\frac{n-1}{n}$
+
+## Problem 6.c
+
+## Problem 6.d
+
+$(1-\frac{1}{n})^n=0$
