@@ -9,14 +9,14 @@ format:
 from ISLP import load_data
 import seaborn as sns
 import matplotlib.pyplot as plt
-import sklearn
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
 import numpy as np
 import statsmodels.formula.api as smf
 
 weekly = load_data("Weekly")
-weekly_binary = weekly.assign(
-    Direction=(weekly["Direction"] == "Up").astype(int)
-)
 sns.set_theme(style="dark")
 ```
 
@@ -117,11 +117,14 @@ From looking at the graphs, we can see that Today is clustered by Direction and 
 ## Problem 5.b
 
 ```{python}
+weekly_binary = weekly.assign(
+    Direction=(weekly["Direction"] == "Up").astype(int)
+)
 model = smf.logit(
     'Direction ~ Volume + Lag1 + Lag2 + Lag3 + Lag4 + Lag5',
     data=weekly_binary
 ).fit(disp=False)
-print(model.summary())
+model.summary()
 ```
 
 Lag2 is the only statistically significant correlation.
@@ -132,21 +135,11 @@ Lag2 is the only statistically significant correlation.
 prediction = model.predict(
     weekly_binary[['Volume', 'Lag1', 'Lag2', 'Lag3', 'Lag4', 'Lag5']]
 ).round()
-confusion_matrix = sklearn.metrics.confusion_matrix(
+ConfusionMatrixDisplay.from_predictions(
     weekly_binary['Direction'],
     prediction
 )
-sklearn.metrics.ConfusionMatrixDisplay(
-    confusion_matrix=confusion_matrix
-).plot()
 plt.show()
-```
-
-```{python}
-print(sklearn.metrics.classification_report(
-    weekly_binary['Direction'],
-    prediction
-))
 ```
 
 We can see that the model is very hesitant to guess 0, so it has a very low recall, 
@@ -154,18 +147,83 @@ We can see that the model is very hesitant to guess 0, so it has a very low reca
 ## Problem 5.d
 
 ```{python}
+weekly_training = weekly[weekly['Year'] <= 2008]
+weekly_training_binary = weekly_training.assign(
+    Direction=(weekly_training["Direction"] == "Up").astype(int)
+)
+weekly_testing = weekly[weekly['Year'] >= 2009]
+weekly_testing_binary = weekly_testing.assign(
+    Direction=(weekly_testing["Direction"] == "Up").astype(int)
+)
 model = smf.logit(
     'Direction ~ Lag2',
-    data=weekly_binary
+    data=weekly_training_binary
 ).fit(disp=False)
-prediction = (model.predict(weekly_binary[['Lag2']]) > 0.5).astype(int)
-confusion_matrix = sklearn.metrics.confusion_matrix(
-    weekly_binary['Direction'],
+prediction = model.predict(weekly_testing_binary[['Lag2']]).round()
+ConfusionMatrixDisplay.from_predictions(
+    weekly_testing_binary['Direction'],
     prediction
 )
-sklearn.metrics.ConfusionMatrixDisplay(
-    confusion_matrix=confusion_matrix
-).plot
+plt.show()
+```
+
+## Probelm 5.e
+
+```{python}
+model = LinearDiscriminantAnalysis().fit(
+    weekly_training_binary[['Lag2']],
+    weekly_training_binary['Direction']
+)
+prediction = model.predict(weekly_testing_binary[['Lag2']]).round()
+ConfusionMatrixDisplay.from_predictions(
+    weekly_testing_binary['Direction'],
+    prediction
+)
+plt.show()
+```
+
+## Problem 5.f
+
+```{python}
+model = QuadraticDiscriminantAnalysis().fit(
+    weekly_training_binary[['Lag2']],
+    weekly_training_binary['Direction']
+)
+prediction = model.predict(weekly_testing_binary[['Lag2']]).round()
+ConfusionMatrixDisplay.from_predictions(
+    weekly_testing_binary['Direction'],
+    prediction
+)
+plt.show()
+```
+
+## Problem 5.g
+
+```{python}
+model = KNeighborsClassifier(n_neighbors=1).fit(
+    weekly_training_binary[['Lag2']],
+    weekly_training_binary['Direction']
+)
+prediction = model.predict(weekly_testing_binary[['Lag2']]).round()
+ConfusionMatrixDisplay.from_predictions(
+    weekly_testing_binary['Direction'],
+    prediction
+)
+plt.show()
+```
+
+## Probem 5.h
+
+```{python}
+model = GaussianNB().fit(
+    weekly_training_binary[['Lag2']],
+    weekly_training_binary['Direction']
+)
+prediction = model.predict(weekly_testing_binary[['Lag2']]).round()
+ConfusionMatrixDisplay.from_predictions(
+    weekly_testing_binary['Direction'],
+    prediction
+)
 plt.show()
 ```
 
