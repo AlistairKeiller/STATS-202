@@ -8,13 +8,16 @@ format:
 ```{python}
 from ISLP import load_data
 import seaborn as sns
-import seaborn.objects as so
 import matplotlib.pyplot as plt
+import sklearn
 import numpy as np
 import statsmodels.formula.api as smf
 
 weekly = load_data("Weekly")
-sns.set_theme(style="darkgrid")
+weekly_binary = weekly.assign(
+    Direction=(weekly["Direction"] == "Up").astype(int)
+)
+sns.set_theme(style="dark")
 ```
 
 # Problem 1
@@ -105,31 +108,66 @@ We would prefer the regression, because the $K=1$ KNN will have a $0\%$ error on
 ## Problem 5.a
 
 ```{python}
-g = sns.PairGrid(weekly, hue="Direction")
-g.map_lower(sns.kdeplot, fill=True)
-g.map_upper(sns.scatterplot)
-g.map_diag(sns.kdeplot, multiple="stack")
-g.add_legend()
-plt.show()
+# | warning: false
+sns.pairplot(weekly, hue="Direction", diag_kws={'multiple': 'stack'})
 ```
 
-```{python}
-so.Plot(weekly, color="Direction").pair(x=['Year', 'Lag1', 'Lag2', 'Lag3', 'Lag4', 'Lag5', 'Volume', 'Today'], y=['Year', 'Lag1', 'Lag2', 'Lag3', 'Lag4', 'Lag5', 'Volume', 'Today']).add(so.Dot())
-```
-
-From looking at the graphs, we can see that today is clustered by direction and there is a correlation between Volume and year.
+From looking at the graphs, we can see that Today is clustered by Direction and there is a correlation between Volume and year.
 
 ## Problem 5.b
 
 ```{python}
-weekly_bool = weekly.copy()
-weekly_bool["Direction"] = (weekly["Direction"] == "Up").astype(int)
-smf.logit('Direction ~ Volume + Lag1 + Lag2 + Lag3 + Lag4 + Lag5', data=weekly_bool).fit().summary()
+model = smf.logit(
+    'Direction ~ Volume + Lag1 + Lag2 + Lag3 + Lag4 + Lag5',
+    data=weekly_binary
+).fit(disp=False)
+print(model.summary())
 ```
 
 Lag2 is the only statistically significant correlation.
 
 ## Problem 5.c
+
+```{python}
+prediction = model.predict(
+    weekly_binary[['Volume', 'Lag1', 'Lag2', 'Lag3', 'Lag4', 'Lag5']]
+).round()
+confusion_matrix = sklearn.metrics.confusion_matrix(
+    weekly_binary['Direction'],
+    prediction
+)
+sklearn.metrics.ConfusionMatrixDisplay(
+    confusion_matrix=confusion_matrix
+).plot()
+plt.show()
+```
+
+```{python}
+print(sklearn.metrics.classification_report(
+    weekly_binary['Direction'],
+    prediction
+))
+```
+
+We can see that the model is very hesitant to guess 0, so it has a very low recall, 
+
+## Problem 5.d
+
+```{python}
+model = smf.logit(
+    'Direction ~ Lag2',
+    data=weekly_binary
+).fit(disp=False)
+prediction = (model.predict(weekly_binary[['Lag2']]) > 0.5).astype(int)
+confusion_matrix = sklearn.metrics.confusion_matrix(
+    weekly_binary['Direction'],
+    prediction
+)
+sklearn.metrics.ConfusionMatrixDisplay(
+    confusion_matrix=confusion_matrix
+).plot
+plt.show()
+```
 
 # Problem 6
 
@@ -160,9 +198,8 @@ $\left(1-\frac{1}{n}\right)^n=\left(1-\frac{1}{10000}\right)^{10000}\approx 0.37
 ## Problem 6.g
 
 ```{python}
-x = np.arange(1,10000)
-y = (1-1/x)**x
-sns.lineplot(y)
+x = np.arange(1, 10000)
+sns.lineplot((1-1/x)**x)
 plt.show()
 ```
 
@@ -174,13 +211,13 @@ $\left(1-\frac{1}{n}\right)^n$ increases and asymptotes to $e^{-1}$.
 rng = np.random.default_rng(10)
 store = np.empty(10000)
 for i in range(10000):
-  store[i] = np.sum(rng.choice(100, replace=True) == 4) > 0
+    store[i] = np.sum(rng.choice(100, replace=True) == 4) > 0
 np.mean(store)
 ```
 
 ```{python}
 np.random.seed(10)
-np.mean(np.random.randint(1,100,10000) == 4)
+np.mean(np.random.randint(1, 100, 10000) == 4)
 ```
 
 These are both very different from the estimate of $\left(1-\frac{1}{100}\right)^{100}=.37$; the python ones are significantly lower and the R is is significantly higher.
