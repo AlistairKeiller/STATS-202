@@ -103,6 +103,23 @@ Every bootstrap observation is sampled identically, so it is also $\frac{n-1}{n}
 
 ## Problem 6.c
 
+Each bootstrap observation has a $1-\frac{1}{n}$ probability of not being the $j$th observation, so the chance that every one of $n$ bootsrap observations in a bootstrap sample of size $n$ is not the $j$th observation is $\left(1-\frac{1}{n}\right)^n$.
+
 ## Problem 6.d
 
-$(1-\frac{1}{n})^n=0$
+$\left(1-\frac{1}{n}\right)^n=\left(1-\frac{1}{5}\right)^5\approx 0.33$
+
+## Problem 6.e
+
+$\left(1-\frac{1}{n}\right)^n=\left(1-\frac{1}{100}\right)^{100}\approx 0.37$
+
+## Problem 6.f
+
+$\left(1-\frac{1}{n}\right)^n=\left(1-\frac{1}{10000}\right)^{10000}\approx 0.37$
+
+```{python}
+import seaborn as sns
+import numpy as np
+
+np.arange(5)
+```
