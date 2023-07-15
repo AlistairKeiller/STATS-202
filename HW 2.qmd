@@ -6,17 +6,24 @@ format:
 ---
 
 ```{python}
-from ISLP import load_data
 import seaborn as sns
 import matplotlib.pyplot as plt
-from sklearn.metrics import ConfusionMatrixDisplay
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis, QuadraticDiscriminantAnalysis
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.naive_bayes import GaussianNB
 import numpy as np
 import statsmodels.formula.api as smf
+import pandas as pd
+from ISLP import load_data
+from sklearn.metrics import ConfusionMatrixDisplay
+from sklearn.discriminant_analysis import ( 
+    LinearDiscriminantAnalysis,
+    QuadraticDiscriminantAnalysis
+)
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.naive_bayes import GaussianNB
+from sklearn.model_selection import train_test_split
+from IPython.display import Latex
 
 weekly = load_data("Weekly")
+default = load_data("default")
 sns.set_theme(style="dark")
 ```
 
@@ -279,3 +286,68 @@ np.mean(np.random.randint(1, 100, 10000) == 4)
 ```
 
 These are both very different from the estimate of $\left(1-\frac{1}{100}\right)^{100}=.37$; the python ones are significantly lower and the R is is significantly higher.
+
+# Problem 7
+## Probblem 7.a
+```{python}
+default_binary = default.assign(
+    default=(default["default"] == "Yes").astype(int)
+)
+model = smf.logit(
+    'default ~ income + balance',
+    data=default_binary
+).fit(disp=False)
+model.summary()
+```
+## Problem 7.b
+```{python}
+default_binary_train, default_binary_test = train_test_split(
+    default_binary,
+    test_size=0.33,
+    random_state=42
+)
+model = smf.logit(
+    'default ~ income + balance',
+    data=default_binary_train
+).fit(disp=False)
+prediction = model.predict(
+    default_binary_test[['income', 'balance']]
+).round()
+error = (
+    sum(prediction != default_binary_test['default'])
+    / len(default_binary_test['default'])
+)
+```
+The error is `{python} error`
+
+## Problem 7.c
+```{python}
+splits = [0.25, 0.5, 0.75]
+errors = []
+for split in splits:
+    default_binary_train, default_binary_test = train_test_split(
+        default_binary,
+        test_size=split,
+        random_state=42
+    )
+    model = smf.logit(
+        'default ~ income + balance',
+        data=default_binary_train
+    ).fit(disp=False)
+    prediction = model.predict(
+        default_binary_test[['income', 'balance']]
+    ).round()
+    error = (
+        sum(prediction != (default_binary_test['default'])
+        / len(default_binary_test['default'])
+    )
+    )
+    errors.append(error)
+Latex(pd.DataFrame({
+    'Training Split': splits,
+    'Error': errors
+}).to_latex())
+```
+From these there seems to be a almost parabolic motion centered somewhere around $0.5$, such that increasing or decreasing the training split will derease performance on the testing data.
+
+## Problem 7.d
