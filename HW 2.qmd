@@ -1,5 +1,5 @@
 ---
-title: "STATS 202 Homework 2"
+title: 'STATS 202 Homework 2'
 format:
   html:
       code-fold: true
@@ -22,9 +22,9 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import train_test_split
 from IPython.display import Latex
 
-weekly = load_data("Weekly")
-default = load_data("default")
-sns.set_theme(style="dark")
+weekly = load_data('Weekly')
+default = load_data('default')
+sns.set_theme(style='dark')
 ```
 
 # Problem 1
@@ -57,7 +57,7 @@ On average, $10^{-100}$ of the observations will be used to be used to make the 
 
 ## Problem 2.d
 
-As the number of features increase, fewer of the larger set will be used for inference, which will make the model seem relatively "dumber" as it sees a very local pictures and never really "understanding" a larger picture, therefore also causing really high variance and overfitting.
+As the number of features increase, fewer of the larger set will be used for inference, which will make the model seem relatively 'dumber' as it sees a very local pictures and never really 'understanding' a larger picture, therefore also causing really high variance and overfitting.
 
 ## Problem 2.e
 
@@ -116,7 +116,7 @@ We would prefer the regression, because the $K=1$ KNN will have a $0\%$ error on
 
 ```{python}
 # | warning: false
-sns.pairplot(weekly, hue="Direction", diag_kws={'multiple': 'stack'})
+sns.pairplot(weekly, hue='Direction', diag_kws={'multiple': 'stack'})
 ```
 
 From looking at the graphs, we can see that Today is clustered by Direction and there is a correlation between Volume and year.
@@ -125,7 +125,7 @@ From looking at the graphs, we can see that Today is clustered by Direction and 
 
 ```{python}
 weekly_binary = weekly.assign(
-    Direction=(weekly["Direction"] == "Up").astype(int)
+    Direction=(weekly['Direction'] == 'Up').astype(int)
 )
 model = smf.logit(
     'Direction ~ Volume + Lag1 + Lag2 + Lag3 + Lag4 + Lag5',
@@ -156,11 +156,11 @@ We can see that the model is very hesitant to guess 0, so it has a very low reca
 ```{python}
 weekly_training = weekly[weekly['Year'] <= 2008]
 weekly_training_binary = weekly_training.assign(
-    Direction=(weekly_training["Direction"] == "Up").astype(int)
+    Direction=(weekly_training['Direction'] == 'Up').astype(int)
 )
 weekly_testing = weekly[weekly['Year'] >= 2009]
 weekly_testing_binary = weekly_testing.assign(
-    Direction=(weekly_testing["Direction"] == "Up").astype(int)
+    Direction=(weekly_testing['Direction'] == 'Up').astype(int)
 )
 model = smf.logit(
     'Direction ~ Lag2',
@@ -291,7 +291,8 @@ These are both very different from the estimate of $\left(1-\frac{1}{100}\right)
 ## Probblem 7.a
 ```{python}
 default_binary = default.assign(
-    default=(default["default"] == "Yes").astype(int)
+    default=(default['default'] == 'Yes').astype(int),
+    student=(default['student'] == 'Yes').astype(int)
 )
 model = smf.logit(
     'default ~ income + balance',
@@ -303,7 +304,7 @@ model.summary()
 ```{python}
 default_binary_train, default_binary_test = train_test_split(
     default_binary,
-    test_size=0.33,
+    test_size=0.5,
     random_state=42
 )
 model = smf.logit(
@@ -351,3 +352,23 @@ Latex(pd.DataFrame({
 From these there seems to be a almost parabolic motion centered somewhere around $0.5$, such that increasing or decreasing the training split will derease performance on the testing data.
 
 ## Problem 7.d
+```{python}
+default_binary_train, default_binary_test = train_test_split(
+    default_binary,
+    test_size=0.5,
+    random_state=42
+)
+model = smf.logit(
+    'default ~ student + income + balance',
+    data=default_binary_train
+).fit(disp=False)
+prediction = model.predict(
+    default_binary_test[['student', 'income', 'balance']]
+).round()
+error = (
+    sum(prediction != default_binary_test['default'])
+    / len(default_binary_test['default'])
+)
+```
+
+The error is `{python} error`, which is an improvment over the version without student, which means that student is providing more information to the model rather than just providing a point of overfitting for the training.
