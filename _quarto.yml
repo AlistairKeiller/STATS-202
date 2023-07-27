@@ -1,0 +1,6 @@
+project:
+  output-dir: output
+format: pdf
+author: "Alistair Keiller"
+execute: 
+  enabled: true
