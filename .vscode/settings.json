@@ -1,0 +1,18 @@
+{
+    "grammarly.selectors": [
+        {
+            "language": "python",
+            "scheme": "vscode-notebook-cell",
+            "pattern": "/Users/alistairkeiller/STATS-202/HW4.ipynb"
+        },
+        {
+            "language": "markdown",
+            "scheme": "vscode-notebook-cell",
+            "pattern": "/Users/alistairkeiller/STATS-202/HW4.ipynb"
+        },
+        {
+            "language": "markdown",
+            "scheme": "vscode-notebook-cell"
+        }
+    ]
+}
